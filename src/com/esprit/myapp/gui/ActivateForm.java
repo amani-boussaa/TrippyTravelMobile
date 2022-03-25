@@ -17,7 +17,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package com.esprit.myapp;
+package com.esprit.myapp.gui;
 
 import com.codename1.components.FloatingHint;
 import com.codename1.components.SpanLabel;
