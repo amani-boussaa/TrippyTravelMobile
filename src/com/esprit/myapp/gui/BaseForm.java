@@ -17,7 +17,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package com.esprit.myapp;
+package com.esprit.myapp.gui;
 
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.Component;
@@ -81,8 +81,12 @@ public class BaseForm extends Form {
                 FlowLayout.encloseCenterBottom(
                         new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
         ));
-        
-        tb.addMaterialCommandToSideMenu("Newsfeed", FontImage.MATERIAL_UPDATE, e -> new NewsfeedForm(res).show());
+
+        tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_UPDATE, e -> new BlogForm(res).show());
+        tb.addMaterialCommandToSideMenu("Excursions", FontImage.MATERIAL_UPDATE, e -> new ExcursionForm(res).show());
+        tb.addMaterialCommandToSideMenu("Maison d'hotes", FontImage.MATERIAL_UPDATE, e -> new MaisonhoteForm(res).show());
+        tb.addMaterialCommandToSideMenu("Attractions", FontImage.MATERIAL_UPDATE, e -> new AttractionForm(res).show());
+        tb.addMaterialCommandToSideMenu("Hotels", FontImage.MATERIAL_UPDATE, e -> new HotelForm(res).show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
     }

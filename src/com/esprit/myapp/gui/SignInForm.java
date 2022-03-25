@@ -17,71 +17,61 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package com.esprit.myapp;
+package com.esprit.myapp.gui;
 
 import com.codename1.components.FloatingHint;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
-import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
 
 /**
- * Signup UI
+ * Sign in UI
  *
  * @author Shai Almog
  */
-public class SignUpForm extends BaseForm {
+public class SignInForm extends BaseForm {
 
-    public SignUpForm(Resources res) {
+    public SignInForm(Resources res) {
         super(new BorderLayout());
-        Toolbar tb = new Toolbar(true);
-        setToolbar(tb);
-        tb.setUIID("Container");
+        
+        if(!Display.getInstance().isTablet()) {
+            BorderLayout bl = (BorderLayout)getLayout();
+            bl.defineLandscapeSwap(BorderLayout.NORTH, BorderLayout.EAST);
+            bl.defineLandscapeSwap(BorderLayout.SOUTH, BorderLayout.CENTER);
+        }
         getTitleArea().setUIID("Container");
-        Form previous = Display.getInstance().getCurrent();
-        tb.setBackCommand("", e -> previous.showBack());
         setUIID("SignIn");
-                
+        
+        add(BorderLayout.NORTH, new Label(res.getImage("Logo.png"), "LogoLabel"));
+        
         TextField username = new TextField("", "Username", 20, TextField.ANY);
-        TextField email = new TextField("", "E-Mail", 20, TextField.EMAILADDR);
         TextField password = new TextField("", "Password", 20, TextField.PASSWORD);
-        TextField confirmPassword = new TextField("", "Confirm Password", 20, TextField.PASSWORD);
         username.setSingleLineTextArea(false);
-        email.setSingleLineTextArea(false);
         password.setSingleLineTextArea(false);
-        confirmPassword.setSingleLineTextArea(false);
-        Button next = new Button("Next");
         Button signIn = new Button("Sign In");
-        signIn.addActionListener(e -> previous.showBack());
-        signIn.setUIID("Link");
-        Label alreadHaveAnAccount = new Label("Already have an account?");
+        Button signUp = new Button("Sign Up");
+        signUp.addActionListener(e -> new SignUpForm(res).show());
+        signUp.setUIID("Link");
+        Label doneHaveAnAccount = new Label("Don't have an account?");
         
         Container content = BoxLayout.encloseY(
-                new Label("Sign Up", "LogoLabel"),
                 new FloatingHint(username),
-                createLineSeparator(),
-                new FloatingHint(email),
                 createLineSeparator(),
                 new FloatingHint(password),
                 createLineSeparator(),
-                new FloatingHint(confirmPassword),
-                createLineSeparator()
+                signIn,
+                FlowLayout.encloseCenter(doneHaveAnAccount, signUp)
         );
         content.setScrollableY(true);
-        add(BorderLayout.CENTER, content);
-        add(BorderLayout.SOUTH, BoxLayout.encloseY(
-                next,
-                FlowLayout.encloseCenter(alreadHaveAnAccount, signIn)
-        ));
-        next.requestFocus();
-        next.addActionListener(e -> new ActivateForm(res).show());
+        add(BorderLayout.SOUTH, content);
+        signIn.requestFocus();
+        signIn.addActionListener(e -> new ExcursionForm(res).show());
     }
     
 }
