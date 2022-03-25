@@ -42,6 +42,7 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.esprit.myapp.services.ServiceExcursion;
 
 
 public class ExcursionForm extends BaseForm {
@@ -134,6 +135,10 @@ public class ExcursionForm extends BaseForm {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
         });
 
+        /**list excursion**/
+//        SpanLabel sp = new SpanLabel();
+//        sp.setText(ServiceExcursion.getInstance().getAllExcursion().toString());
+//        add(sp);
         addButton(res.getImage("news-item-1.jpg"), "Morbi per tincidunt tellus sit of amet eros laoreet.", false, 26, 32);
         addButton(res.getImage("news-item-2.jpg"), "Fusce ornare cursus masspretium tortor integer placera.", true, 15, 21);
         addButton(res.getImage("news-item-3.jpg"), "Maecenas eu risus blanscelerisque massa non amcorpe.", false, 36, 15);
