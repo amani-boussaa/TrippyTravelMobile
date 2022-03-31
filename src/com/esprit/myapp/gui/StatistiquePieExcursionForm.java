@@ -11,28 +11,16 @@ import com.codename1.charts.renderers.XYMultipleSeriesRenderer.Orientation;
 import com.codename1.charts.renderers.XYSeriesRenderer;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.charts.views.PieChart;
+import com.codename1.components.InfiniteProgress;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
-import com.codename1.ui.Button;
-import com.codename1.ui.ButtonGroup;
-import com.codename1.ui.Command;
-import com.codename1.ui.Component;
+import com.codename1.ui.*;
+
 import static com.codename1.ui.Component.BOTTOM;
 import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.Component.LEFT;
-import com.codename1.ui.Container;
-import com.codename1.ui.Display;
-import com.codename1.ui.Font;
-import com.codename1.ui.FontImage;
-import com.codename1.ui.Form;
-import com.codename1.ui.Graphics;
-import com.codename1.ui.Image;
-import com.codename1.ui.Label;
-import com.codename1.ui.RadioButton;
-import com.codename1.ui.Tabs;
-import com.codename1.ui.TextArea;
-import com.codename1.ui.Toolbar;
+
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
@@ -54,23 +42,22 @@ public class StatistiquePieExcursionForm extends BaseForm {
     BaseForm form;
     public StatistiquePieExcursionForm(Resources res)  {
         super("Newsfeed", BoxLayout.y());
-        current= this;
-
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Acceuill");
+        setTitle("Liste excursions");
         getContentPane().setScrollVisible(false);
 
-        super.addSideMenu(res);
-        tb.addSearchCommand(e -> {});
 
+        tb.addSearchCommand(e -> {
+
+        });
         Tabs swipe = new Tabs();
-
+        Label s1 = new Label();
+        Label s2 = new Label();
         Label spacer1 = new Label();
         Label spacer2 = new Label();
         addTab(swipe, res.getImage("bg_3.jpg"), spacer1, "Bienvenue");
-
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
         swipe.hideTabs();
@@ -92,7 +79,7 @@ public class StatistiquePieExcursionForm extends BaseForm {
         FlowLayout flow = new FlowLayout(CENTER);
         flow.setValign(BOTTOM);
         Container radioContainer = new Container(flow);
-        for(int iter = 0 ; iter < rbs.length ; iter++) {
+        for (int iter = 0; iter < rbs.length; iter++) {
             rbs[iter] = RadioButton.createToggle(unselectedWalkthru, bg);
             rbs[iter].setPressedIcon(selectedWalkthru);
             rbs[iter].setUIID("Label");
@@ -101,54 +88,63 @@ public class StatistiquePieExcursionForm extends BaseForm {
 
         rbs[0].setSelected(true);
         swipe.addSelectionListener((i, ii) -> {
-            if(!rbs[ii].isSelected()) {
+            if (!rbs[ii].isSelected()) {
                 rbs[ii].setSelected(true);
             }
         });
-        refreshTheme();
+
         Component.setSameSize(radioContainer, spacer1, spacer2);
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
         ButtonGroup barGroup = new ButtonGroup();
-
-        RadioButton all = RadioButton.createToggle("Feedback", barGroup);
-
-        all.setUIID("SelectBar");
-        RadioButton popular = RadioButton.createToggle("Categorie Reclamation", barGroup);
-        popular.setUIID("SelectBar");
-        RadioButton feedback = RadioButton.createToggle("Feedback", barGroup);
-        feedback.setUIID("SelectBar");
-        RadioButton profile = RadioButton.createToggle("Statistique", barGroup);
-        profile.setUIID("SelectBar");
+        RadioButton mesListes = RadioButton.createToggle("Excursions", barGroup);
+        mesListes.setUIID("SelectBar");
+        RadioButton liste = RadioButton.createToggle("Statistique", barGroup);
+        liste.setUIID("SelectBar");
+        RadioButton partage = RadioButton.createToggle("Ajouter excursion", barGroup);
+        partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
+        //list menu
+        mesListes.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+            final Dialog ipDlg = ip.showInifiniteBlocking();
+            ListExcursionForm a = new ListExcursionForm(res);
+            a.show();
+            refreshTheme();
+        });
+        //ajouter menu
+        partage.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+            final Dialog iDialog = ip.showInfiniteBlocking();
+            iDialog.dispose(); //na7iw loader baad mamalna ajout
+            new AjouterExcursionForm(res).show();
+            refreshTheme(); //actualisation
+        });
+
+        //statitistique menu
+        liste.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+            final Dialog iDialog = ip.showInfiniteBlocking();
+            iDialog.dispose(); //na7iw loader baad mamalna ajout
+            new StatistiquePieExcursionForm(res).show();
+            refreshTheme(); //actualisation
+        });
+
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, all, popular,profile),
+                GridLayout.encloseIn(3, mesListes, liste, partage),
                 FlowLayout.encloseBottom(arrow)
         ));
-        all.setSelected(true);
+
+        mesListes.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
-            updateArrowPosition(all, arrow);
-
+            updateArrowPosition(mesListes, arrow);
         });
-        bindButtonSelection(all, arrow);
-        bindButtonSelection(popular, arrow);
-        all.addActionListener((e)->{
-        });
-
-        popular.setSelected(true);
-        arrow.setVisible(false);
-        addShowListener(e -> {
-            arrow.setVisible(true);
-            updateArrowPosition(profile, arrow);
-        });
-        bindButtonSelection(profile, arrow);
-        profile.addActionListener((e)->{
-            new StatistiquePieExcursionForm(res).show();
-
-        });
+        bindButtonSelection(mesListes, arrow);
+        bindButtonSelection(liste, arrow);
+        bindButtonSelection(partage, arrow);
         // special case for rotation
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);

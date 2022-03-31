@@ -71,11 +71,11 @@ public class ListExcursionForm extends BaseForm {
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton mesListes = RadioButton.createToggle("Mes Reclamations", barGroup);
+        RadioButton mesListes = RadioButton.createToggle("Excursions", barGroup);
         mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Autres", barGroup);
+        RadioButton liste = RadioButton.createToggle("Statistique", barGroup);
         liste.setUIID("SelectBar");
-        RadioButton partage = RadioButton.createToggle("Reclamer", barGroup);
+        RadioButton partage = RadioButton.createToggle("Ajouter excursion", barGroup);
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
@@ -93,6 +93,15 @@ public class ListExcursionForm extends BaseForm {
             final Dialog iDialog = ip.showInfiniteBlocking();
             iDialog.dispose(); //na7iw loader baad mamalna ajout
             new AjouterExcursionForm(res).show();
+            refreshTheme(); //actualisation
+        });
+
+        //statitistique menu
+        liste.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+            final Dialog iDialog = ip.showInfiniteBlocking();
+            iDialog.dispose(); //na7iw loader baad mamalna ajout
+            new StatistiquePieExcursionForm(res).show();
             refreshTheme(); //actualisation
         });
 
@@ -236,10 +245,24 @@ public class ListExcursionForm extends BaseForm {
             new ModifierExcursionForm(res,excursion).show();
         });
 
+        //detail button
+        Label lDetail = new Label(" ");
+        lDetail.setUIID("NewsTopLine");
+        Style detailStyle = new Style(lDetail.getUnselectedStyle());
+        updateStyle.setFgColor(0xf7ad02);
+        FontImage detailImage = FontImage.createMaterial(FontImage.MATERIAL_INFO,updateStyle);
+        lDetail.setIcon(detailImage);
+        lDetail.setTextPosition(LEFT);
+
+        //click detail button
+        lDetail.addPointerPressedListener(l->{
+            new ExcursionDetailForm(res,excursion).show();
+        });
+
         cnt.add(BorderLayout.CENTER,
                 BoxLayout.encloseY(
                         BoxLayout.encloseX(libelletxt),
-                        BoxLayout.encloseX(descriptiontxt,lSupprimer,lUpdate)
+                        BoxLayout.encloseX(descriptiontxt,lSupprimer,lUpdate,lDetail)
                 ));
 
         add(cnt);

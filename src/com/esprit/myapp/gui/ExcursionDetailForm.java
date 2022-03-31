@@ -1,28 +1,28 @@
 package com.esprit.myapp.gui;
 
-import com.codename1.components.InfiniteProgress;
-import com.codename1.components.ScaleImageLabel;
-import com.codename1.components.SpanLabel;
+import com.codename1.components.*;
 import com.codename1.ui.*;
+import com.codename1.ui.animations.ComponentAnimation;
 import com.codename1.ui.layouts.*;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.esprit.myapp.entities.Excursion;
 import com.esprit.myapp.services.ServiceExcursion;
 
-public class AjouterExcursionForm extends BaseForm{
+import java.util.ArrayList;
+
+public class ExcursionDetailForm extends BaseForm {
     Form current;
-    public AjouterExcursionForm(Resources res){
-        super("Newsfeed", BoxLayout.y());//heritage de newsfeed et formulaire vertical
+    public ExcursionDetailForm(Resources res, Excursion excursion) {
+        super("Newsfeed", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
-        current = this;
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Ajout Réservation excursion");
+        setTitle("Liste excursions");
         getContentPane().setScrollVisible(false);
 
 
-        tb.addSearchCommand(e->{
+        tb.addSearchCommand(e -> {
 
         });
         Tabs swipe = new Tabs();
@@ -30,8 +30,8 @@ public class AjouterExcursionForm extends BaseForm{
         Label s2 = new Label();
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe,spacer1,res.getImage("bg_3.jpg"),"","",res);
-//
+        addTab(swipe, spacer1, res.getImage("bg_3.jpg"), "", "", res);
+
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
         swipe.hideTabs();
@@ -79,12 +79,29 @@ public class AjouterExcursionForm extends BaseForm{
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
-
+        //list menu
         mesListes.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+            final Dialog ipDlg = ip.showInifiniteBlocking();
+            ListExcursionForm a = new ListExcursionForm(res);
+            a.show();
+            refreshTheme();
+        });
+        //ajouter menu
+        partage.addActionListener((e) -> {
             InfiniteProgress ip = new InfiniteProgress();
             final Dialog iDialog = ip.showInfiniteBlocking();
             iDialog.dispose(); //na7iw loader baad mamalna ajout
-            new ListExcursionForm(res).show();
+            new AjouterExcursionForm(res).show();
+            refreshTheme(); //actualisation
+        });
+
+        //statitistique menu
+        liste.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+            final Dialog iDialog = ip.showInfiniteBlocking();
+            iDialog.dispose(); //na7iw loader baad mamalna ajout
+            new StatistiquePieExcursionForm(res).show();
             refreshTheme(); //actualisation
         });
 
@@ -93,11 +110,11 @@ public class AjouterExcursionForm extends BaseForm{
                 FlowLayout.encloseBottom(arrow)
         ));
 
-        partage.setSelected(true);
+        mesListes.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
-            updateArrowPosition(partage, arrow);
+            updateArrowPosition(mesListes, arrow);
         });
         bindButtonSelection(mesListes, arrow);
         bindButtonSelection(liste, arrow);
@@ -106,69 +123,36 @@ public class AjouterExcursionForm extends BaseForm{
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
         });
-
-
         //
 
-        TextField libelle = new TextField("","entrer libelle");
-        libelle.setUIID("TextFieldBlack");
-        addStrngValue("libelle",libelle);
+        /**Détail excursion**/
+        Label Libelle1 = new Label("Libelle");
+        Label Libelle = new Label(excursion.getLibelle());
+        Label Description1 = new Label("Description");
+        Label Description = new Label(excursion.getDescription());
 
-        TextField description = new TextField("","entrer description");
-        description.setUIID("TextFieldBlack");
-        addStrngValue("Description",description);
+        Libelle.setUIID("NewsTopLine");
+        Description.setUIID("NewsTopLine");
+        Label l1 = new Label("");
+        Label l2 = new Label("");
+        Label l3 = new Label("");
+        Label l4 = new Label("");
+        Label l5 = new Label("");
 
-        TextField programme = new TextField("","entrer programme");
-        programme.setUIID("TextFieldBlack");
-        addStrngValue("Programme",programme);
+        Container content = BoxLayout.encloseY(
+                l1,l2,
+                Libelle1,
+                Libelle,
+                createLineSeparator(),
+                Description1,
+                Description,
+                createLineSeparator(), //create ligne separation
+                l4,l5
+        );
 
-        TextField ville = new TextField("","entrer ville");
-        ville.setUIID("TextFieldBlack");
-        addStrngValue("Ville",ville);
-
-        TextField prix = new TextField("","entrer prix");
-        prix.setUIID("TextFieldBlack");
-        addStrngValue("Prix",prix);
-
-        TextField duration = new TextField("","entrer duration");
-        duration.setUIID("TextFieldBlack");
-        addStrngValue("Duration",duration);
-
-        TextField excursioncategorie_id = new TextField("","entrer excursioncategorie_id");
-        excursioncategorie_id.setUIID("TextFieldBlack");
-        addStrngValue("excursioncategorie_id",excursioncategorie_id);
-
-        Button btnAjouter = new Button("Ajouter");
-        addStrngValue("",btnAjouter);
-
-        //onclick button event
-        btnAjouter.addActionListener((e)->{
-            try {
-                if (libelle.getText()=="" || description.getText()=="" || programme.getText()=="" || ville.getText()=="" || prix.getText()=="" || duration.getText()=="" || excursioncategorie_id.getText()==""){
-                    Dialog.show("Veuillez vérifiez les données","","Annuler","OK");
-                }else {
-                    InfiniteProgress ip = new InfiniteProgress(); //loading after insert data
-                    final Dialog iDialog = ip.showInfiniteBlocking();
-                    Excursion excursion = new Excursion(String.valueOf(libelle.getText()).toString(),
-                            String.valueOf(description.getText()).toString(),
-                            String.valueOf(programme.getText()).toString(),
-                            String.valueOf(ville.getText()).toString(),
-                            String.valueOf(ville.getText()).toString(),
-                            String.valueOf(Float.parseFloat(prix.getText())),
-                            String.valueOf(duration.getText()).toString(),
-                            String.valueOf(excursioncategorie_id.getText()).toString());
-                    ServiceExcursion.getInstance().ajoutExcursion(excursion);
-
-                    iDialog.dispose(); //na7iw loader baad mamalna ajout
-                    new ListExcursionForm(res).show();
-                    refreshTheme(); //actualisation
-                }
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
+        add(content);
+        show();
     }
-
     private void addStrngValue(String s, Component v) {
         add(BorderLayout.west(new Label(s,"PaddedLabel"))
                 .add(BorderLayout.CENTER,v));
@@ -215,5 +199,64 @@ public class AjouterExcursionForm extends BaseForm{
         arrow.getParent().repaint();
 
 
+    }
+
+    private void addButton(Image img,Excursion excursion, Resources res) {
+        int height = Display.getInstance().convertToPixels(11.5f);
+        int width = Display.getInstance().convertToPixels(14f);
+
+        Button image = new Button(img.fill(width, height));
+        image.setUIID("Label");
+        Container cnt = BorderLayout.west(image);
+
+        Label libelletxt = new Label("Libéllé: "+excursion.getLibelle(),"NewsTopLine2");
+        Label descriptiontxt = new Label("Description: "+excursion.getDescription(),"NewsTopLine2");
+
+        createLineSeparator();
+
+        // supprimer button
+        Label lSupprimer = new Label(" ");
+        lSupprimer.setUIID("NewsTopLine");
+        Style supprimerStyle = new Style(lSupprimer.getUnselectedStyle());
+        supprimerStyle.setFgColor(0xf21f1f);
+        FontImage supprimerImage = FontImage.createMaterial(FontImage.MATERIAL_DELETE,supprimerStyle);
+        lSupprimer.setIcon(supprimerImage);
+        lSupprimer.setTextPosition(RIGHT);
+
+        //click delete button
+        lSupprimer.addPointerPressedListener(l->{
+            Dialog dig = new Dialog("Suppression");
+            if (dig.show("Suppression","Vous voulez supprimer cette excursion?","Anuuler","Ok")){
+                dig.dispose();
+            }else{
+                dig.dispose();
+                //n3aytou l supprimerExcursion
+                if (ServiceExcursion.getInstance().deleteExcursion(excursion.getId())){
+                    new ListExcursionForm(res).show();
+                }
+            }
+        });
+
+        // update button
+        Label lUpdate = new Label(" ");
+        lUpdate.setUIID("NewsTopLine");
+        Style updateStyle = new Style(lUpdate.getUnselectedStyle());
+        updateStyle.setFgColor(0xf7ad02);
+        FontImage updateImage = FontImage.createMaterial(FontImage.MATERIAL_MODE_EDIT,updateStyle);
+        lUpdate.setIcon(updateImage);
+        lUpdate.setTextPosition(LEFT);
+
+        //click update button
+        lUpdate.addPointerPressedListener(l->{
+            new ModifierExcursionForm(res,excursion).show();
+        });
+
+        cnt.add(BorderLayout.CENTER,
+                BoxLayout.encloseY(
+                        BoxLayout.encloseX(libelletxt),
+                        BoxLayout.encloseX(descriptiontxt,lSupprimer,lUpdate)
+                ));
+
+        add(cnt);
     }
 }
