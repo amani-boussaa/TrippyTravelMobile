@@ -1,10 +1,8 @@
 package com.esprit.myapp.gui;
 
-import com.codename1.components.InfiniteProgress;
-import com.codename1.components.ScaleImageLabel;
-import com.codename1.components.SpanLabel;
-import com.codename1.components.ToastBar;
+import com.codename1.components.*;
 import com.codename1.ui.*;
+import com.codename1.ui.animations.ComponentAnimation;
 import com.codename1.ui.layouts.*;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
@@ -118,10 +116,26 @@ public class ListExcursionForm extends BaseForm {
         });
         //
 
+        /**image**/
+//        Form hi = new Form("Toolbar", new BoxLayout(BoxLayout.Y_AXIS));
+//        EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(hi.getWidth(), hi.getWidth() / 5, 0xffff0000), true);
+//        URLImage background = URLImage.createToStorage(placeholder, "400px-AGameOfThrones.jpg",
+//                "http://awoiaf.westeros.org/images/thumb/9/93/AGameOfThrones.jpg/400px-AGameOfThrones.jpg");
+//        background.fetch();
+//        add(background);
         /**list excursion**/
         ArrayList<Excursion>list = ServiceExcursion.getInstance().getAllExcursion();
         for (Excursion excursion : list){
-            addButton(res.getImage("news-item-1.jpg"), excursion,res);
+
+            /**image**/
+            Form hi = new Form("Toolbar", new BoxLayout(BoxLayout.Y_AXIS));
+            EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(hi.getWidth(), hi.getWidth() / 5, 0xffff0000), true);
+            URLImage background = URLImage.createToStorage(placeholder, "400px-AGameOfThrones.jpg",
+                    excursion.getImage());
+            background.fetch();
+            Image i = URLImage.createToStorage(placeholder, excursion.getImage(), excursion.getImage(), URLImage.RESIZE_SCALE);
+            addButton(i, excursion,res);
+//            addButton(res.getImage("news-item-1.jpg"), excursion,res);
         }
     }
     private void addStrngValue(String s, Component v) {

@@ -86,7 +86,6 @@ public class AjouterExcursionForm extends BaseForm{
             iDialog.dispose(); //na7iw loader baad mamalna ajout
             new ListExcursionForm(res).show();
             refreshTheme(); //actualisation
-
         });
 
         add(LayeredLayout.encloseIn(
@@ -153,6 +152,7 @@ public class AjouterExcursionForm extends BaseForm{
                     Excursion excursion = new Excursion(String.valueOf(libelle.getText()).toString(),
                             String.valueOf(description.getText()).toString(),
                             String.valueOf(programme.getText()).toString(),
+                            String.valueOf(ville.getText()).toString(),
                             String.valueOf(ville.getText()).toString(),
                             String.valueOf(Float.parseFloat(prix.getText())),
                             String.valueOf(duration.getText()).toString(),

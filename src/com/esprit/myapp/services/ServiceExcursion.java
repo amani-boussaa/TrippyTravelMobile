@@ -91,7 +91,12 @@ public class ServiceExcursion {
                 if (obj.get("excursioncategorie_id") == null)
                     t.setExcursioncategorie_id(null);
                 else
-                    t.setExcursioncategorie_id(obj.get("excursioncategorie_id").toString());
+                    t.setExcursioncategorie_id(obj.get("image").toString());
+                if (obj.get("image") == null)
+                    t.setImage(null);
+                else
+                    t.setImage(obj.get("image").toString());
+
                 excursions.add(t);
             }
         } catch (IOException ex) {
@@ -109,6 +114,18 @@ public class ServiceExcursion {
             public void actionPerformed(NetworkEvent evt) {
                 excursions = parseExcursions(new String(req.getResponseData()));
                 req.removeResponseListener(this);
+                /**new ads**/
+                JSONParser jsonp = new JSONParser();
+                String str = new String(req.getResponseData());
+                try {
+                    Map<String, Object> obj = jsonp.parseJSON(new CharArrayReader(new String(str).toCharArray()));
+
+
+                    System.out.println(str);
+                }catch (IOException ex){
+                    System.out.println("error related to sql"+ex.getMessage());
+
+                }
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
