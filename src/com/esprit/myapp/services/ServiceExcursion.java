@@ -29,6 +29,7 @@ public class ServiceExcursion {
             instance = new ServiceExcursion();
         return instance;
     }
+    public static boolean resultOk = true;
 
     public void ajoutExcursion(Excursion excursion) {
         String url = Statics.BASE_URL + "addExcursionapi?libelle=" + excursion.getLibelle() + "&description=" + excursion.getDescription()+"&programme="+excursion.getProgramme() + "&ville=" + excursion.getVille() + "&prix=" + excursion.getPrix() + "&duration=" + excursion.getDuration() + "&excursioncategorie_id=" + excursion.getExcursioncategorie_id() ;
@@ -136,5 +137,34 @@ public class ServiceExcursion {
         }));
         NetworkManager.getInstance().addToQueueAndWait(req);
         return excursion;
+    }
+
+    /*****************************************************Delete**************************************************************/
+    public boolean deleteExcursion(int id) {
+        String url = Statics.BASE_URL + "deleteExcursionapi?id=" + id;
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                req.removeResponseCodeListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOk;
+    }
+
+    /*****************************************************Update**************************************************************/
+    public boolean updateExcursion(Excursion excursion) {
+        String url = Statics.BASE_URL + "updateExcursionapi?id=" + excursion.getId() + "&libelle=" + excursion.getLibelle() + "&description="+excursion.getDescription();
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOk=req.getResponseCode() == 200; //code response http 200 OK
+                req.removeResponseCodeListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOk;
     }
 }

@@ -13,7 +13,7 @@ import com.esprit.myapp.services.ServiceExcursion;
 public class AjouterExcursionForm extends BaseForm{
     Form current;
     public AjouterExcursionForm(Resources res){
-        super("Newsfeed", BoxLayout.y());
+        super("Newsfeed", BoxLayout.y());//heritage de newsfeed et formulaire vertical
         Toolbar tb = new Toolbar(true);
         current = this;
         setToolbar(tb);
@@ -31,7 +31,6 @@ public class AjouterExcursionForm extends BaseForm{
         Label spacer1 = new Label();
         Label spacer2 = new Label();
         addTab(swipe,spacer1,res.getImage("bg_3.jpg"),"","",res);
-//        addTab(swipe, res.getImage("bg_3.jpg"), spacer1, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
 //
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");

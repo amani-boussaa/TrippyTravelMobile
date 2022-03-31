@@ -14,6 +14,7 @@ import com.esprit.myapp.services.ServiceExcursion;
 import java.util.ArrayList;
 
 public class ListExcursionForm extends BaseForm {
+    Form current;
     public ListExcursionForm(Resources res) {
         super("Newsfeed", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
@@ -32,8 +33,7 @@ public class ListExcursionForm extends BaseForm {
         Label spacer1 = new Label();
         Label spacer2 = new Label();
         addTab(swipe, spacer1, res.getImage("bg_3.jpg"), "", "", res);
-//        addTab(swipe, res.getImage("bg_3.jpg"), spacer1, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
-//
+
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
         swipe.hideTabs();
@@ -86,10 +86,19 @@ public class ListExcursionForm extends BaseForm {
             InfiniteProgress ip = new InfiniteProgress();
             final Dialog ipDlg = ip.showInifiniteBlocking();
 
-            //  ListReclamationForm a = new ListReclamationForm(res);
-            //  a.show();
+              ListExcursionForm a = new ListExcursionForm(res);
+              a.show();
             refreshTheme();
         });
+
+//        partage.addActionListener((e) -> {
+//            InfiniteProgress ip = new InfiniteProgress();
+//            final Dialog ipDlg = ip.showInifiniteBlocking();
+//
+//            AjouterExcursionForm ajoutf = new AjouterExcursionForm(res);
+//            ajoutf.show();
+//            refreshTheme();
+//        });
 
         add(LayeredLayout.encloseIn(
                 GridLayout.encloseIn(3, mesListes, liste, partage),
@@ -114,7 +123,7 @@ public class ListExcursionForm extends BaseForm {
         /**list excursion**/
         ArrayList<Excursion>list = ServiceExcursion.getInstance().getAllExcursion();
         for (Excursion excursion : list){
-            addButton(res.getImage("news-item-1.jpg"),excursion.getLibelle(), excursion.getDescription(), excursion);
+            addButton(res.getImage("news-item-1.jpg"), excursion,res);
         }
     }
     private void addStrngValue(String s, Component v) {
@@ -165,18 +174,62 @@ public class ListExcursionForm extends BaseForm {
 
     }
 
-    private void addButton(Image img,String libelle,String Description,Excursion excursion) {
+    private void addButton(Image img,Excursion excursion, Resources res) {
         int height = Display.getInstance().convertToPixels(11.5f);
         int width = Display.getInstance().convertToPixels(14f);
+
         Button image = new Button(img.fill(width, height));
         image.setUIID("Label");
         Container cnt = BorderLayout.west(image);
-        cnt.setLeadComponent(image);
-        TextArea ta = new TextArea(libelle);
-        ta.setUIID("NewsTopLine");
-        ta.setEditable(false);
+
+        Label libelletxt = new Label("Libéllé: "+excursion.getLibelle(),"NewsTopLine2");
+        Label descriptiontxt = new Label("Description: "+excursion.getDescription(),"NewsTopLine2");
+
+        createLineSeparator();
+
+        // supprimer button
+        Label lSupprimer = new Label(" ");
+        lSupprimer.setUIID("NewsTopLine");
+        Style supprimerStyle = new Style(lSupprimer.getUnselectedStyle());
+        supprimerStyle.setFgColor(0xf21f1f);
+        FontImage supprimerImage = FontImage.createMaterial(FontImage.MATERIAL_DELETE,supprimerStyle);
+        lSupprimer.setIcon(supprimerImage);
+        lSupprimer.setTextPosition(RIGHT);
+
+        //click delete button
+        lSupprimer.addPointerPressedListener(l->{
+            Dialog dig = new Dialog("Suppression");
+            if (dig.show("Suppression","Vous voulez supprimer cette excursion?","Anuuler","Ok")){
+                dig.dispose();
+            }else{
+                dig.dispose();
+                //n3aytou l supprimerExcursion
+                if (ServiceExcursion.getInstance().deleteExcursion(excursion.getId())){
+                    new ListExcursionForm(res).show();
+                }
+            }
+        });
+
+        // update button
+        Label lUpdate = new Label(" ");
+        lUpdate.setUIID("NewsTopLine");
+        Style updateStyle = new Style(lUpdate.getUnselectedStyle());
+        updateStyle.setFgColor(0xf7ad02);
+        FontImage updateImage = FontImage.createMaterial(FontImage.MATERIAL_MODE_EDIT,updateStyle);
+        lUpdate.setIcon(updateImage);
+        lUpdate.setTextPosition(LEFT);
+
+        //click update button
+        lUpdate.addPointerPressedListener(l->{
+            new ModifierExcursionForm(res,excursion).show();
+        });
+
         cnt.add(BorderLayout.CENTER,
-                BoxLayout.encloseY(ta));
+                BoxLayout.encloseY(
+                        BoxLayout.encloseX(libelletxt),
+                        BoxLayout.encloseX(descriptiontxt,lSupprimer,lUpdate)
+                ));
+
         add(cnt);
     }
 }
