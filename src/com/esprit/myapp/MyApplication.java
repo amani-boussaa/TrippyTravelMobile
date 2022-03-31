@@ -10,6 +10,7 @@ import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
 import com.esprit.myapp.gui.AjouterExcursionForm;
+import com.esprit.myapp.gui.StatistiquePieExcursionForm;
 import com.esprit.myapp.gui.WalkthruForm;
 
 /**
@@ -50,7 +51,7 @@ public class MyApplication {
             current.show();
             return;
         }
-        new AjouterExcursionForm(theme).show();
+        new StatistiquePieExcursionForm(theme).show();
 //        new WalkthruForm(theme).show();
     }
 
