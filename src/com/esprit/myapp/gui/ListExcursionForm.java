@@ -81,35 +81,33 @@ public class ListExcursionForm extends BaseForm {
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
-
+        //list menu
         mesListes.addActionListener((e) -> {
             InfiniteProgress ip = new InfiniteProgress();
             final Dialog ipDlg = ip.showInifiniteBlocking();
-
               ListExcursionForm a = new ListExcursionForm(res);
               a.show();
             refreshTheme();
         });
-
-//        partage.addActionListener((e) -> {
-//            InfiniteProgress ip = new InfiniteProgress();
-//            final Dialog ipDlg = ip.showInifiniteBlocking();
-//
-//            AjouterExcursionForm ajoutf = new AjouterExcursionForm(res);
-//            ajoutf.show();
-//            refreshTheme();
-//        });
+        //ajouter menu
+        partage.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+            final Dialog iDialog = ip.showInfiniteBlocking();
+            iDialog.dispose(); //na7iw loader baad mamalna ajout
+            new AjouterExcursionForm(res).show();
+            refreshTheme(); //actualisation
+        });
 
         add(LayeredLayout.encloseIn(
                 GridLayout.encloseIn(3, mesListes, liste, partage),
                 FlowLayout.encloseBottom(arrow)
         ));
 
-        partage.setSelected(true);
+        mesListes.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
-            updateArrowPosition(partage, arrow);
+            updateArrowPosition(mesListes, arrow);
         });
         bindButtonSelection(mesListes, arrow);
         bindButtonSelection(liste, arrow);

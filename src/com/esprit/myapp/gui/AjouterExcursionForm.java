@@ -82,10 +82,11 @@ public class AjouterExcursionForm extends BaseForm{
 
         mesListes.addActionListener((e) -> {
             InfiniteProgress ip = new InfiniteProgress();
-            final Dialog ipDlg = ip.showInifiniteBlocking();
+            final Dialog iDialog = ip.showInfiniteBlocking();
+            iDialog.dispose(); //na7iw loader baad mamalna ajout
+            new ListExcursionForm(res).show();
+            refreshTheme(); //actualisation
 
-
-            refreshTheme();
         });
 
         add(LayeredLayout.encloseIn(
