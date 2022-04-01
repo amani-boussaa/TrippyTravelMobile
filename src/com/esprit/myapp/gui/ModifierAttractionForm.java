@@ -19,6 +19,8 @@ public class ModifierAttractionForm extends BaseForm{
         getContentPane().setScrollVisible(false);
 
         super.addSideMenu(res);
+        tb.addSearchCommand(e -> {});
+
         TextField libelle = new TextField(attraction.getLibelle(),"libelle",20, TextField.ANY);
         TextField localisation = new TextField(attraction.getLocalisation(),"localisation",20, TextField.ANY);
         TextField horraire = new TextField(attraction.getHorraire(),"horraire",20, TextField.ANY);
