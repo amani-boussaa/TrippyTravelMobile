@@ -7,6 +7,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.esprit.myapp.entities.Excursion;
+import com.esprit.myapp.entities.ExcursionComments;
 import com.esprit.myapp.utile.Statics;
 
 import java.io.IOException;
@@ -137,7 +138,7 @@ public class ServiceExcursion {
         String url = Statics.BASE_URL ;
         String str = new String(req.getResponseData());
         req.setUrl(url);
-        req.addResponseListener((evt -> {
+        req.addResponseListener(evt -> {
             JSONParser jsonp = new JSONParser();
             try{
                 Map<String,Object>obj=jsonp.parseJSON(new CharArrayReader(new String(str).toCharArray()));
@@ -146,12 +147,13 @@ public class ServiceExcursion {
                 excursion.setDescription(obj.get("description").toString());
                 excursion.setId(Integer.parseInt(obj.get("id").toString()));
                 excursion.setPrix(obj.get("prix").toString());
+                excursion.setComments((ExcursionComments[]) obj.get("comments"));
             }catch (IOException ex){
                 System.out.println("error related to sql"+ex.getMessage());
             }
 
             System.out.println("data=="+str);
-        }));
+        });
         NetworkManager.getInstance().addToQueueAndWait(req);
         return excursion;
     }
@@ -184,4 +186,6 @@ public class ServiceExcursion {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOk;
     }
+
+
 }

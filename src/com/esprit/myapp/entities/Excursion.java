@@ -5,6 +5,7 @@ public class Excursion {
     private String libelle,duration,programme,description,ville,image;
     private String prix;
     private String excursioncategorie_id;
+    private ExcursionComments[] comments;
 
     public Excursion() {
     }
@@ -31,8 +32,16 @@ public class Excursion {
         this.excursioncategorie_id = excursioncategorie_id;
     }
 
+    public void setComments(ExcursionComments[] comments) {
+        this.comments = comments;
+    }
+
     public String getImage() {
         return image;
+    }
+
+    public ExcursionComments[] getComments() {
+        return comments;
     }
 
     public void setImage(String image) {

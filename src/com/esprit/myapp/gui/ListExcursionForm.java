@@ -21,10 +21,9 @@ public class ListExcursionForm extends BaseForm {
         setTitle("Liste excursions");
         getContentPane().setScrollVisible(false);
 
+        super.addSideMenu(res);
+        tb.addSearchCommand(e -> {});
 
-        tb.addSearchCommand(e -> {
-
-        });
         Tabs swipe = new Tabs();
         Label s1 = new Label();
         Label s2 = new Label();
@@ -125,13 +124,6 @@ public class ListExcursionForm extends BaseForm {
         });
         //
 
-        /**image**/
-//        Form hi = new Form("Toolbar", new BoxLayout(BoxLayout.Y_AXIS));
-//        EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(hi.getWidth(), hi.getWidth() / 5, 0xffff0000), true);
-//        URLImage background = URLImage.createToStorage(placeholder, "400px-AGameOfThrones.jpg",
-//                "http://awoiaf.westeros.org/images/thumb/9/93/AGameOfThrones.jpg/400px-AGameOfThrones.jpg");
-//        background.fetch();
-//        add(background);
         /**list excursion**/
         ArrayList<Excursion>list = ServiceExcursion.getInstance().getAllExcursion();
         for (Excursion excursion : list){

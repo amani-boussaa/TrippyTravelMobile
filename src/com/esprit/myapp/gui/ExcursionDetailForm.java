@@ -2,11 +2,11 @@ package com.esprit.myapp.gui;
 
 import com.codename1.components.*;
 import com.codename1.ui.*;
-import com.codename1.ui.animations.ComponentAnimation;
 import com.codename1.ui.layouts.*;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.esprit.myapp.entities.Excursion;
+import com.esprit.myapp.entities.ExcursionComments;
 import com.esprit.myapp.services.ServiceExcursion;
 
 import java.util.ArrayList;
@@ -21,10 +21,9 @@ public class ExcursionDetailForm extends BaseForm {
         setTitle("Liste excursions");
         getContentPane().setScrollVisible(false);
 
+        super.addSideMenu(res);
+        tb.addSearchCommand(e -> {});
 
-        tb.addSearchCommand(e -> {
-
-        });
         Tabs swipe = new Tabs();
         Label s1 = new Label();
         Label s2 = new Label();

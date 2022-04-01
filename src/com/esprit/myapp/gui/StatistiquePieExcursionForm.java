@@ -48,10 +48,9 @@ public class StatistiquePieExcursionForm extends BaseForm {
         setTitle("Liste excursions");
         getContentPane().setScrollVisible(false);
 
+        super.addSideMenu(res);
+        tb.addSearchCommand(e -> {});
 
-        tb.addSearchCommand(e -> {
-
-        });
         Tabs swipe = new Tabs();
         Label s1 = new Label();
         Label s2 = new Label();

@@ -21,10 +21,9 @@ public class AjouterExcursionForm extends BaseForm{
         setTitle("Ajout Réservation excursion");
         getContentPane().setScrollVisible(false);
 
+        super.addSideMenu(res);
+        tb.addSearchCommand(e -> {});
 
-        tb.addSearchCommand(e->{
-
-        });
         Tabs swipe = new Tabs();
         Label s1 = new Label();
         Label s2 = new Label();

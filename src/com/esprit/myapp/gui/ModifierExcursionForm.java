@@ -19,6 +19,8 @@ public class ModifierExcursionForm extends BaseForm{
         getContentPane().setScrollVisible(false);
 
         super.addSideMenu(res);
+        tb.addSearchCommand(e -> {});
+
         TextField Libelle = new TextField(excursion.getDescription(),"Libellé",20, TextField.ANY);
         TextField Description = new TextField(excursion.getDescription(),"Description",20, TextField.ANY);
 

@@ -79,11 +79,11 @@ public class BaseForm extends Form {
         tb.addComponentToSideMenu(LayeredLayout.encloseIn(
                 sl,
                 FlowLayout.encloseCenterBottom(
-                        new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
+                        new Label(res.getImage("logo.png"), "PictureWhiteBackgrond"))
         ));
 
         tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_UPDATE, e -> new BlogForm(res).show());
-        tb.addMaterialCommandToSideMenu("Excursions", FontImage.MATERIAL_UPDATE, e -> new ExcursionForm(res).show());
+        tb.addMaterialCommandToSideMenu("Excursions", FontImage.MATERIAL_UPDATE, e -> new ListExcursionForm(res).show());
         tb.addMaterialCommandToSideMenu("Maison d'hotes", FontImage.MATERIAL_UPDATE, e -> new MaisonhoteForm(res).show());
         tb.addMaterialCommandToSideMenu("Attractions", FontImage.MATERIAL_UPDATE, e -> new AttractionForm(res).show());
         tb.addMaterialCommandToSideMenu("Hotels", FontImage.MATERIAL_UPDATE, e -> new HotelForm(res).show());
