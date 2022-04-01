@@ -9,6 +9,8 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
+import com.esprit.myapp.gui.AjouterAttractionForm;
+import com.esprit.myapp.gui.AttractionForm;
 import com.esprit.myapp.gui.WalkthruForm;
 
 /**
@@ -49,7 +51,7 @@ public class MyApplication {
             current.show();
             return;
         }
-        new WalkthruForm(theme).show();
+        new AjouterAttractionForm(theme).show();
     }
 
     public void stop() {

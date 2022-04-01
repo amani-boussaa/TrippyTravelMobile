@@ -42,7 +42,15 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.codename1.components.ScaleImageLabel;
+import com.codename1.components.SpanLabel;
+import com.codename1.components.ToastBar;
+import com.codename1.ui.plaf.Style;
+import com.codename1.ui.util.Resources;
+import com.esprit.myapp.entities.Attraction;
+import com.esprit.myapp.services.ServiceAttraction;
 
+import java.util.ArrayList;
 /**
  * The Attraction form
  *
@@ -51,7 +59,9 @@ import com.codename1.ui.util.Resources;
 public class AttractionForm extends BaseForm {
 
     public AttractionForm(Resources res) {
-        super("Attraction", BoxLayout.y());
+         super("Attraction", BoxLayout.y());
+
+       
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
