@@ -15,7 +15,7 @@ import com.esprit.myapp.services.ServicesMaisonshotes;
  * @author samar
  */
 public class ModifierMaisonshotesForm extends BaseForm{
-     Form current;
+    Form current;
     public ModifierMaisonshotesForm(Resources res, Maisonshotes Maisonshotes){
         super("Newsfeed", BoxLayout.y());//heritage de newsfeed et formulaire vertical
         Toolbar tb = new Toolbar(true);
@@ -26,24 +26,28 @@ public class ModifierMaisonshotesForm extends BaseForm{
         getContentPane().setScrollVisible(false);
 
         super.addSideMenu(res);
-        tb.addSearchCommand(e -> {});
-
         TextField libelle = new TextField(Maisonshotes.getLibelle(),"libelle",20, TextField.ANY);
         TextField capacite= new TextField(Integer.toString(Maisonshotes.getCapacite()));
         TextField localisation = new TextField(Maisonshotes.getLocalisation(),"localisation",20, TextField.ANY);
         TextField proprietaire = new TextField(Maisonshotes.getProprietaire(),"proprietaire",20, TextField.ANY);
         TextField nbrChambres= new TextField(Integer.toString(Maisonshotes.getNbrChambres()));
         TextField type_maison = new TextField(Maisonshotes.getTypeMaison(),"type_maison",20, TextField.ANY);
-        
-        
+
+        libelle.setUIID("NewsTopLine");
+        capacite.setUIID("NewsTopLine");
+        localisation.setUIID("NewsTopLine");
+        proprietaire.setUIID("NewsTopLine");
+        nbrChambres.setUIID("NewsTopLine");
+        type_maison.setUIID("NewsTopLine");
+
         libelle.setSingleLineTextArea(true);
         capacite.setSingleLineTextArea(true);
         proprietaire.setSingleLineTextArea(true);
         nbrChambres.setSingleLineTextArea(true);
         type_maison.setSingleLineTextArea(true);
-        
-        
-        
+
+
+
         Button btnModifier = new Button("Modifier");
         btnModifier.setUIID("Button");
 
@@ -51,13 +55,16 @@ public class ModifierMaisonshotesForm extends BaseForm{
         btnModifier.addPointerPressedListener(l->{
             Maisonshotes.setLibelle(libelle.getText());
             Maisonshotes.setLocalisation(localisation.getText());
-            
-           
+            Maisonshotes.setCapacite(0);
+            Maisonshotes.setProprietaire("0");
+            Maisonshotes.setNbrChambres(0);
+            Maisonshotes.setTypeMaison("1");
 
-        //appel fonction modifier excursion
-        if (ServicesMaisonshotes.getInstance().ModifierMaisonshotes(Maisonshotes)){
-            new ListMaisonshotesForm(res).show();
-        }
+
+            //appel fonction modifier excursion
+            if (ServicesMaisonshotes.getInstance().ModifierMaisonshotes(Maisonshotes)){
+                new ListMaisonshotesForm(res).show();
+            }
 
         });
         Button btnAnnuler = new Button("Annuler");
@@ -75,7 +82,7 @@ public class ModifierMaisonshotesForm extends BaseForm{
                 l1,l2,
                 new FloatingHint(libelle),
                 createLineSeparator(),
-                
+
                 l4,l5,
                 btnModifier,
                 btnAnnuler
@@ -84,7 +91,7 @@ public class ModifierMaisonshotesForm extends BaseForm{
         show();
     }
 
-   
-  
-    
+
+
+
 }

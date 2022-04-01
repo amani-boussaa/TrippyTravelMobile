@@ -37,7 +37,7 @@ public class ListMaisonshotesForm extends BaseForm{
         Label s2 = new Label();
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, spacer1, res.getImage("news-item.jpg"), "", "", res);
+        addTab(swipe, spacer1, res.getImage("bg_2.jpg"), "", "", res);
 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
@@ -126,7 +126,7 @@ public class ListMaisonshotesForm extends BaseForm{
         /**list excursion**/
         ArrayList<Maisonshotes>list = ServicesMaisonshotes.getInstance().getAllMaisonshotes();
         for (Maisonshotes Maisonshotes : list){
-            addButton(res.getImage("news-item-1.jpg"), Maisonshotes,res);
+            addButton(res.getImage("chambre.jpg"), Maisonshotes,res);
         }
     }
 

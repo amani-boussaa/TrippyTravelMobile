@@ -37,7 +37,7 @@ Form current;
         Label s2 = new Label();
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-      /*  addTab(swipe,spacer1,res.getImage("bg_3.jpg"),"","",res);*/
+//        addTab(swipe,spacer1,res.getImage("bg_2.jpg"),"","",res);
 //
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
