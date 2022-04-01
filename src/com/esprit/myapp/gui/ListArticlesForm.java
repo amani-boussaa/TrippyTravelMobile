@@ -29,7 +29,7 @@ public class ListArticlesForm extends BaseForm {
         Label s2 = new Label();
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, spacer1, res.getImage("news-item.jpg"), "", "", res);
+        addTab(swipe, spacer1, res.getImage("article.jpg"), "", "", res);
 //        addTab(swipe, res.getImage("bg_3.jpg"), spacer1, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
 //
         swipe.setUIID("Container");

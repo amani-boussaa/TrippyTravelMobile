@@ -30,7 +30,7 @@ public class AjouterArticleForm extends BaseForm{
         Label s2 = new Label();
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe,spacer1,res.getImage("news-item.jpg"),"","",res);
+        addTab(swipe,spacer1,res.getImage("article.jpg"),"","",res);
 //
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
