@@ -79,14 +79,15 @@ public class BaseForm extends Form {
         tb.addComponentToSideMenu(LayeredLayout.encloseIn(
                 sl,
                 FlowLayout.encloseCenterBottom(
-                        new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
+                        new Label(res.getImage("logo.png"), "PictureWhiteBackgrond"))
         ));
 
-        tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_UPDATE, e -> new BlogForm(res).show());
-        tb.addMaterialCommandToSideMenu("Excursions", FontImage.MATERIAL_UPDATE, e -> new ExcursionForm(res).show());
-        tb.addMaterialCommandToSideMenu("Maison d'hotes", FontImage.MATERIAL_UPDATE, e -> new MaisonhoteForm(res).show());
-        tb.addMaterialCommandToSideMenu("Attractions", FontImage.MATERIAL_UPDATE, e -> new AttractionForm(res).show());
-        tb.addMaterialCommandToSideMenu("Hotels", FontImage.MATERIAL_UPDATE, e -> new HotelForm(res).show());
+        tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_UPDATE, e -> new ListArticlesForm(res).show());
+        tb.addMaterialCommandToSideMenu("Excursions", FontImage.MATERIAL_UPDATE, e -> new ListExcursionForm(res).show());
+        tb.addMaterialCommandToSideMenu("Maison d'hotes", FontImage.MATERIAL_UPDATE, e -> new ListMaisonshotesForm(res).show());
+        tb.addMaterialCommandToSideMenu("Attractions", FontImage.MATERIAL_UPDATE, e -> new ListAttractionForm(res).show());
+        tb.addMaterialCommandToSideMenu("Hotels", FontImage.MATERIAL_UPDATE, e -> new ListHotelForm(res).show());
+        tb.addMaterialCommandToSideMenu("Chambre", FontImage.MATERIAL_UPDATE, e -> new ListChambreForm(res).show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
     }

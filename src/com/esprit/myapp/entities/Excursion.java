@@ -2,32 +2,50 @@ package com.esprit.myapp.entities;
 
 public class Excursion {
     private int id;
-    private String libelle,duration,programme,description,ville;
-    private Float prix;
-    private String excursioncategorie;
+    private String libelle,duration,programme,description,ville,image;
+    private String prix;
+    private String excursioncategorie_id;
+    private ExcursionComments[] comments;
 
     public Excursion() {
     }
 
-    public Excursion(int id, String libelle, String duration, String programme, String description, String ville, Float prix, String excursioncategorie) {
-        this.id = id;
+//    public Excursion(String libelle, String duration, String programme, String description, String ville, String prix, String excursioncategorie_id) {
+//        this.libelle = libelle;
+//        this.duration = duration;
+//        this.programme = programme;
+//        this.description = description;
+//        this.ville = ville;
+//        this.prix = prix;
+//        this.excursioncategorie_id = excursioncategorie_id;
+//    }
+
+
+    public Excursion(String libelle, String duration, String programme, String description, String ville, String image, String prix, String excursioncategorie_id) {
         this.libelle = libelle;
         this.duration = duration;
         this.programme = programme;
         this.description = description;
         this.ville = ville;
+        this.image = image;
         this.prix = prix;
-        this.excursioncategorie = excursioncategorie;
+        this.excursioncategorie_id = excursioncategorie_id;
     }
 
-    public Excursion(String libelle, String duration, String programme, String description, String ville, Float prix, String excursioncategorie) {
-        this.libelle = libelle;
-        this.duration = duration;
-        this.programme = programme;
-        this.description = description;
-        this.ville = ville;
-        this.prix = prix;
-        this.excursioncategorie = excursioncategorie;
+    public void setComments(ExcursionComments[] comments) {
+        this.comments = comments;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public ExcursionComments[] getComments() {
+        return comments;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getId() {
@@ -78,33 +96,19 @@ public class Excursion {
         this.ville = ville;
     }
 
-    public Float getPrix() {
+    public String getPrix() {
         return prix;
     }
 
-    public void setPrix(Float prix) {
+    public void setPrix(String prix) {
         this.prix = prix;
     }
 
-    public String getExcursioncategorie() {
-        return excursioncategorie;
+    public String getExcursioncategorie_id() {
+        return excursioncategorie_id;
     }
 
-    public void setExcursioncategorie(String excursioncategorie) {
-        this.excursioncategorie = excursioncategorie;
-    }
-
-    @Override
-    public String toString() {
-        return "Excursion{" +
-                "id=" + id +
-                ", libelle='" + libelle + '\'' +
-                ", duration='" + duration + '\'' +
-                ", programme='" + programme + '\'' +
-                ", description='" + description + '\'' +
-                ", ville='" + ville + '\'' +
-                ", prix=" + prix +
-                ", excursioncategorie=" + excursioncategorie +
-                '}';
+    public void setExcursioncategorie_id(String excursioncategorie_id) {
+        this.excursioncategorie_id = excursioncategorie_id;
     }
 }
