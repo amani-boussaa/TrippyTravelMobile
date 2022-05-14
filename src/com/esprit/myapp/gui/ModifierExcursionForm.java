@@ -15,17 +15,23 @@ public class ModifierExcursionForm extends BaseForm{
         current = this;
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Ajout Réservation excursion");
+        setTitle("Modifier Réservation excursion");
         getContentPane().setScrollVisible(false);
 
         super.addSideMenu(res);
         tb.addSearchCommand(e -> {});
 
-        TextField Libelle = new TextField(excursion.getDescription(),"Libellé",20, TextField.ANY);
+        TextField Libelle = new TextField(excursion.getLibelle(),"Libellé",20, TextField.ANY);
         TextField Description = new TextField(excursion.getDescription(),"Description",20, TextField.ANY);
+        TextField Prix = new TextField(excursion.getPrix(),"Prix",20, TextField.ANY);
+        TextField Programme = new TextField(excursion.getProgramme(),"Programme",20, TextField.ANY);
+        TextField Duration = new TextField(excursion.getDuration(),"Durée",20, TextField.ANY);
 
         Libelle.setUIID("NewsTopLine");
         Description.setUIID("NewsTopLine");
+        Prix.setUIID("NewsTopLine");
+        Programme.setUIID("NewsTopLine");
+        Duration.setUIID("NewsTopLine");
 
         Libelle.setSingleLineTextArea(true);
         Description.setSingleLineTextArea(true);
@@ -37,9 +43,12 @@ public class ModifierExcursionForm extends BaseForm{
         btnModifier.addPointerPressedListener(l->{
             excursion.setLibelle(Libelle.getText());
             excursion.setDescription(Description.getText());
+            excursion.setPrix(Prix.getText());
+            excursion.setProgramme(Programme.getText());
+            excursion.setDuration(Duration.getText());
 
 
-        //appel fonction modifier excursion
+        //appel fonction liste excursion
         if (ServiceExcursion.getInstance().updateExcursion(excursion)){
             new ListExcursionForm(res).show();
         }
@@ -62,6 +71,14 @@ public class ModifierExcursionForm extends BaseForm{
                 createLineSeparator(),
                 new FloatingHint(Description),
                 createLineSeparator(), //create ligne separation
+                new FloatingHint(Prix),
+                createLineSeparator(), //create ligne separation
+                new FloatingHint(Programme),
+                createLineSeparator(), //create ligne separation
+
+                new FloatingHint(Duration),
+                createLineSeparator(), //create ligne separation
+
                 l4,l5,
                 btnModifier,
                 btnAnnuler

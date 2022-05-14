@@ -174,7 +174,7 @@ public class ServiceExcursion {
 
     /*****************************************************Update**************************************************************/
     public boolean updateExcursion(Excursion excursion) {
-        String url = Statics.BASE_URL + "updateExcursionapi?id=" + excursion.getId() + "&libelle=" + excursion.getLibelle() + "&description="+excursion.getDescription();
+        String url = Statics.BASE_URL + "updateExcursionapi?id=" + excursion.getId() + "&libelle=" + excursion.getLibelle() + "&description="+excursion.getDescription()+ "&prix="+excursion.getPrix()+ "&duration="+excursion.getDuration()+ "&programme="+excursion.getProgramme()+ "&ville="+excursion.getVille();
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
