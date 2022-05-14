@@ -259,12 +259,13 @@ public class StatistiquePieExcursionForm extends BaseForm {
         double total = nbr_feedback+nbr_excursion;
         double prcntFeed = (nbr_feedback*100)/total;
         double prcntExcu = (nbr_excursion*100)/total;
-        double[] values = new double[]{prcntFeed, prcntExcu};
-//        double[] values = new double[]{12, 14, 11, 10, 19};
+      //  double[] values = new double[]{prcntFeed, prcntExcu};
+
+        double[] values = new double[]{12, 14, 11, 10, 19};
 //
 //        // Set up the renderer
-//        int[] colors = new int[]{ColorUtil.BLUE, ColorUtil.GREEN, ColorUtil.MAGENTA, ColorUtil.YELLOW, ColorUtil.CYAN};
-        int[] colors = new int[]{ColorUtil.CYAN, ColorUtil.MAGENTA};
+        int[] colors = new int[]{ColorUtil.BLUE, ColorUtil.GREEN, ColorUtil.MAGENTA, ColorUtil.YELLOW, ColorUtil.CYAN};
+   //     int[] colors = new int[]{ColorUtil.CYAN, ColorUtil.MAGENTA};
         DefaultRenderer renderer = buildCategoryRenderer(colors);
         renderer.setZoomButtonsVisible(true);
         renderer.setLabelsTextSize(40);

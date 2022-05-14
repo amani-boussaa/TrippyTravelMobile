@@ -18,7 +18,7 @@ public class ExcursionDetailForm extends BaseForm {
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Liste excursions");
+        setTitle("Détail excursions");
         getContentPane().setScrollVisible(false);
 
         super.addSideMenu(res);
@@ -129,9 +129,21 @@ public class ExcursionDetailForm extends BaseForm {
         Label Libelle = new Label(excursion.getLibelle());
         Label Description1 = new Label("Description");
         Label Description = new Label(excursion.getDescription());
+        Label Prix1 = new Label("Prix");
+        Label Prix = new Label(excursion.getPrix());
+        Label Programme1 = new Label("Programme");
+        Label Programme = new Label(excursion.getProgramme());
+        Label Duree1 = new Label("Durée");
+        Label Duree = new Label(excursion.getDuration());
+        Label Ville1 = new Label("Ville");
+        Label Ville = new Label(excursion.getVille());
 
         Libelle.setUIID("NewsTopLine");
         Description.setUIID("NewsTopLine");
+        Prix.setUIID("NewsTopLine");
+        Programme.setUIID("NewsTopLine");
+        Duree.setUIID("NewsTopLine");
+        Ville.setUIID("NewsTopLine");
         Label l1 = new Label("");
         Label l2 = new Label("");
         Label l3 = new Label("");
@@ -145,6 +157,14 @@ public class ExcursionDetailForm extends BaseForm {
                 createLineSeparator(),
                 Description1,
                 Description,
+                Prix1,
+                Prix,
+                Programme1,
+                Programme,
+                Duree1,
+                Duree,
+                Ville1,
+                Ville,
                 createLineSeparator(), //create ligne separation
                 l4,l5
         );
@@ -210,6 +230,7 @@ public class ExcursionDetailForm extends BaseForm {
 
         Label libelletxt = new Label("Libéllé: "+excursion.getLibelle(),"NewsTopLine2");
         Label descriptiontxt = new Label("Description: "+excursion.getDescription(),"NewsTopLine2");
+        Label prixtxt = new Label("Prix: "+excursion.getPrix(),"NewsTopLine2");
 
         createLineSeparator();
 
@@ -253,7 +274,7 @@ public class ExcursionDetailForm extends BaseForm {
         cnt.add(BorderLayout.CENTER,
                 BoxLayout.encloseY(
                         BoxLayout.encloseX(libelletxt),
-                        BoxLayout.encloseX(descriptiontxt,lSupprimer,lUpdate)
+                        BoxLayout.encloseX(descriptiontxt,prixtxt,lSupprimer,lUpdate)
                 ));
 
         add(cnt);

@@ -254,7 +254,8 @@ public class ListExcursionForm extends BaseForm {
         cnt.add(BorderLayout.CENTER,
                 BoxLayout.encloseY(
                         BoxLayout.encloseX(libelletxt),
-                        BoxLayout.encloseX(descriptiontxt,lSupprimer,lUpdate,lDetail)
+                        BoxLayout.encloseX(descriptiontxt),
+                        BoxLayout.encloseX(lSupprimer,lUpdate,lDetail)
                 ));
 
         add(cnt);
