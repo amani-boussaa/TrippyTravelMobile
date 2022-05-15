@@ -49,8 +49,8 @@ public class MyApplication {
             current.show();
             return;
         }
-//        new ListExcursionForm(theme).show();
-        new WalkthruForm(theme).show();
+        new ListExcursionForm(theme).show();
+//        new WalkthruForm(theme).show();
     }
 
     public void stop() {

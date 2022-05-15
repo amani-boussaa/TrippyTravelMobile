@@ -59,12 +59,19 @@ public class ServiceExcursion {
         try {
             excursions = new ArrayList<>();
             JSONParser j = new JSONParser();
+            System.out.println("now");
             Map<String, Object> excursionListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             List<Map<String, Object>> list = (List<Map<String, Object>>) excursionListJson.get("root");
+            System.out.println("amani");
+            System.out.println(list);
             for (Map<String, Object> obj : list) {
                 Excursion t = new Excursion();
                 float id = Float.parseFloat(obj.get("id").toString());
                 t.setId((int) id);
+                if (obj.get("image") == null)
+                    t.setImage(null);
+                else
+                    t.setImage(obj.get("image").toString());
                 if (obj.get("libelle") == null)
                     t.setLibelle("null");
                 else
@@ -84,7 +91,7 @@ public class ServiceExcursion {
                 if (obj.get("ville") == null)
                     t.setVille("null");
                 else
-                    t.setVille(obj.get("prix").toString());
+                    t.setVille(obj.get("ville").toString());
                 if (obj.get("prix") == null)
                     t.setPrix(null);
                 else
@@ -92,11 +99,8 @@ public class ServiceExcursion {
                 if (obj.get("excursioncategorie_id") == null)
                     t.setExcursioncategorie_id(null);
                 else
-                    t.setExcursioncategorie_id(obj.get("image").toString());
-                if (obj.get("image") == null)
-                    t.setImage(null);
-                else
-                    t.setImage(obj.get("image").toString());
+                    t.setExcursioncategorie_id(obj.get("excursioncategorie_id").toString());
+
 
                 excursions.add(t);
             }
@@ -107,13 +111,18 @@ public class ServiceExcursion {
     }
 
     public ArrayList<Excursion> getAllExcursion() {
+//        try {
         String url = Statics.BASE_URL+"allexcursionapi" ;
+        System.out.println(url);
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
+                System.out.println("ok");
                 excursions = parseExcursions(new String(req.getResponseData()));
+                System.out.println("after");
+                System.out.println(excursions);
                 req.removeResponseListener(this);
                 /**new ads**/
                 JSONParser jsonp = new JSONParser();
@@ -131,6 +140,11 @@ public class ServiceExcursion {
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
         return excursions;
+//        }catch (Exception ex){
+//            System.out.println("error related to sql"+ex.getMessage());
+//
+//        }
+//        return excursions;
     }
 
     // détail excursion

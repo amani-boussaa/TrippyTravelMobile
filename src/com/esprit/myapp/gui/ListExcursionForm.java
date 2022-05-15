@@ -138,6 +138,7 @@ public class ListExcursionForm extends BaseForm {
             addButton(i, excursion,res);
 //            addButton(res.getImage("news-item-1.jpg"), excursion,res);
         }
+
     }
     private void addStrngValue(String s, Component v) {
         add(BorderLayout.west(new Label(s,"PaddedLabel"))
@@ -196,7 +197,7 @@ public class ListExcursionForm extends BaseForm {
         Container cnt = BorderLayout.west(image);
 
         Label libelletxt = new Label("Libéllé: "+excursion.getLibelle(),"NewsTopLine2");
-        Label descriptiontxt = new Label("Description: "+excursion.getDescription(),"NewsTopLine2");
+        Label prixtxt = new Label("Prix: "+excursion.getPrix()+" DT","NewsTopLine2");
 
         createLineSeparator();
 
@@ -254,7 +255,7 @@ public class ListExcursionForm extends BaseForm {
         cnt.add(BorderLayout.CENTER,
                 BoxLayout.encloseY(
                         BoxLayout.encloseX(libelletxt),
-                        BoxLayout.encloseX(descriptiontxt),
+                        BoxLayout.encloseX(prixtxt),
                         BoxLayout.encloseX(lSupprimer,lUpdate,lDetail)
                 ));
 
