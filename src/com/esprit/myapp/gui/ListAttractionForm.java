@@ -229,7 +229,8 @@ public class ListAttractionForm extends BaseForm {
         cnt.add(BorderLayout.CENTER,
                 BoxLayout.encloseY(
                         BoxLayout.encloseX(libelletxt),
-                        BoxLayout.encloseX(localisationtxt,horrairetxt,lSupprimer,lUpdate)
+                        BoxLayout.encloseX(localisationtxt),
+                        BoxLayout.encloseX(horrairetxt,lSupprimer,lUpdate)
                 ));
 
         add(cnt);

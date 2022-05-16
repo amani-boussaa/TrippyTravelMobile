@@ -233,7 +233,8 @@ public class ListArticlesForm extends BaseForm {
         cnt.add(BorderLayout.CENTER,
                 BoxLayout.encloseY(
                         BoxLayout.encloseX(libelletxt),
-                        BoxLayout.encloseX(descriptiontxt,lSupprimer,lUpdate)
+                        BoxLayout.encloseX(descriptiontxt),
+                        BoxLayout.encloseX(lSupprimer,lUpdate)
                 ));
 
         add(cnt);
